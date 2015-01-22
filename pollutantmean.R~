@@ -1,8 +1,7 @@
 pollutantmean <- function(directory=specdata, pollutant=sulfate, id = 1) {
-	FILELIST <- list()
+	FILELIST <- list()  # create empty list
 	for (MYID in id){
-		MYFILE <- paste(".\\specdata\\",MYID,".csv",sep="")
-	#	MYFILE <- paste(".\\",directory,"\\",MYID,".csv",sep="")
+		MYFILE <- paste(".\\",directory,"\\",MYID,".csv",sep="")
 		FILELIST <- c(FILELIST,MYFILE)
 	}
 

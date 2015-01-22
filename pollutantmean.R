@@ -1,15 +1,14 @@
 pollutantmean <- function(directory=specdata, pollutant=sulfate, id = 1) {
-	FILELIST <- list()
+	FILELIST <- list()  # create empty list
 	for (MYID in id){
-		MYFILE <- paste(".\\specdata\\",MYID,".csv",sep="")
-	#	MYFILE <- paste(".\\",directory,"\\",MYID,".csv",sep="")
+		MYFILE <- paste(".\\",directory,"\\",MYID,".csv",sep="")
 		FILELIST <- c(FILELIST,MYFILE)
 	}
 
+	browser()
  	MYTABLELIST <- lapply(FILELIST, read.csv, header=TRUE)
 	MYTABLE <- data.frame(MYTABLELIST, row.names=TRUE) #convert to table
 	#as.data.frame(TABLE) #TABLE = read.csv(".\\specdata\\100.csv",header=TRUE)
-	browser()
 	MYMEAN <- mean(MYTABLE[[pollutant]], na.rm=TRUE)
 	#MYMEAN <- mean(MYTABLE$sulfate, na.rm=TRUE)
 	MYMEAN
