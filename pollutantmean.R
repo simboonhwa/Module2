@@ -1,14 +1,20 @@
 pollutantmean <- function(directory=specdata, pollutant=sulfate, id = 1) {
 	FILELIST <- list()  # create empty list
 	for (MYID in id){
-		MYFILE <- paste(".\\",directory,"\\",MYID,".csv",sep="")
+		#convert into 3 integer numeric
+		THREECHAR <- sprintf("%03d",MYID)
+
+		MYFILE <- paste(".\\",directory,"\\",THREECHAR,".csv",sep="")
 		FILELIST <- c(FILELIST,MYFILE)
 	}
 
-	browser()
+
+	# extract the relevant file into data frame within a list
  	MYTABLELIST <- lapply(FILELIST, read.csv, header=TRUE)
-	MYTABLE <- data.frame(MYTABLELIST, row.names=TRUE) #convert to table
-	#as.data.frame(TABLE) #TABLE = read.csv(".\\specdata\\100.csv",header=TRUE)
+
+	# convert to table
+	MYTABLE <- do.call("rbind", MYTABLELIST)
+
 	MYMEAN <- mean(MYTABLE[[pollutant]], na.rm=TRUE)
 	#MYMEAN <- mean(MYTABLE$sulfate, na.rm=TRUE)
 	MYMEAN
@@ -24,6 +30,4 @@ pollutantmean <- function(directory=specdata, pollutant=sulfate, id = 1) {
         ## 'id' is an integer vector indicating the monitor ID numbers
         ## to be used
 
-        ## Return the mean of the pollutant across all monitors list
-        ## in the 'id' vector (ignoring NA values)
 }
