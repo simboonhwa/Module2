@@ -4,7 +4,8 @@ complete <- function(directory, id = 1:332) {
 		#convert into 3 integer numeric
 		THREECHAR <- sprintf("%03d",MYID)
 
-		MYFILE <- paste(".\\",directory,"\\",THREECHAR,".csv",sep="")
+	#	MYFILE <- paste(".\\",directory,"\\",THREECHAR,".csv",sep="") #wind
+		MYFILE <- paste(".//",directory,"//",THREECHAR,".csv",sep="") #linux
 		FILELIST <- c(FILELIST,MYFILE)
 	}	
 
@@ -14,7 +15,12 @@ complete <- function(directory, id = 1:332) {
 	# convert to table
 	MYTABLE <- do.call("rbind", MYTABLELIST)
 	
-	table(MYTABLE$
+	GOODTABLE <- MYTABLE[complete.cases(MYTABLE),]
+	RESULT <- aggregate(GOODTABLE$ID, list(id=GOODTABLE$ID), length)
+	colnames(RESULT) <- c("id","nobs")
+	RESULT
+
+	#aggregate(MYTABLE$ID, by=list(id=MYTABLE$ID), length)
         ## 'directory' is a character vector of length 1 indicating
         ## the location of the CSV files
 
