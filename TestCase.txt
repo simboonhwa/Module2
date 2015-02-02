@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 source("complete.R")
 source("corr.R")
 source("pollutantmean.R")
@@ -36,4 +37,44 @@ length(cr)
 cr <- corr("specdata")
 summary(cr)
 
+=======
+source("complete.R")
+source("corr.R")
+source("pollutantmean.R")
+
+A1
+pollutantmean("specdata", "sulfate", 1:10)
+pollutantmean("specdata", "nitrate", 70:72)
+pollutantmean("specdata", "nitrate", 23)
+
+
+A2
+complete("specdata", 1)
+complete("specdata", c(2, 4, 8, 10, 12))
+complete("specdata", 30:25)
+complete("specdata", 3)
+
+
+A3
+complete("specdata", 1)
+
+cr <- corr("specdata", 150)
+head(cr)
+
+summary(cr)
+
+cr <- corr("specdata", 400)
+head(cr)
+
+summary(cr)
+
+cr <- corr("specdata", 5000)
+summary(cr)
+
+length(cr)
+
+cr <- corr("specdata")
+summary(cr)
+
+>>>>>>> b7d72bf61b60a35e5ea4a0649a826284d0795528
 length(cr)
