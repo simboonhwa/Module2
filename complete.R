@@ -1,37 +1,16 @@
 complete <- function(directory, id = 1:332) {
-	FILELIST <- list()  # create empty list
-	for (MYID in id){
-		#convert into 3 integer numeric
-		THREECHAR <- sprintf("%03d",MYID)
 
-	#	MYFILE <- paste(".\\",directory,"\\",THREECHAR,".csv",sep="") #wind
-		MYFILE <- paste(".//",directory,"//",THREECHAR,".csv",sep="") #linux
-		FILELIST <- c(FILELIST,MYFILE)
-	}	
+	source("consolidateDF.R")
+	MYTABLE <- consolidateDF(directory,id)
 
-	# extract the relevant file into data frame within a list
- 	MYTABLELIST <- lapply(FILELIST, read.csv, header=TRUE)
+	#return DF based on 
+	RESULT <- aggregate(MYTABLE$ID, list(id=MYTABLE$ID), length)
 
-	# convert to table
-	MYTABLE <- do.call("rbind", MYTABLELIST)
-	
-	GOODTABLE <- MYTABLE[complete.cases(MYTABLE),]
-	RESULT <- aggregate(GOODTABLE$ID, list(id=GOODTABLE$ID), length)
+	# re-order the output based on the input (id)
+	ORESULT <- RESULT[match(RESULT$id,id),]
+
+	#rename the row & column accordingly
 	colnames(RESULT) <- c("id","nobs")
-	RESULT
-
-	#aggregate(MYTABLE$ID, by=list(id=MYTABLE$ID), length)
-        ## 'directory' is a character vector of length 1 indicating
-        ## the location of the CSV files
-
-        ## 'id' is an integer vector indicating the monitor ID numbers
-        ## to be used
-        
-        ## Return a data frame of the form:
-        ## id nobs
-        ## 1  117
-        ## 2  1041
-        ## ...
-        ## where 'id' is the monitor ID number and 'nobs' is the
-        ## number of complete cases
+	rownames(ORESULT) <- c(1:nrow(ORESULT))
+	ORESULT
 }
