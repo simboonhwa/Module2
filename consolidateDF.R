@@ -15,9 +15,10 @@ consolidateDF <- function(dir, id = 1:332) {
         MYTABLELIST <- lapply(FILELIST, read.csv, header=TRUE)
 
         # convert LIST to table
-        MYTABLE <- do.call("rbind", MYTABLELIST)
+        #MYTABLE <- do.call("rbind", MYTABLELIST)
+        do.call("rbind", MYTABLELIST)
 
 	# return data frame with only complete valid row
- 	MYTABLE[complete.cases(MYTABLE),]
+ 	#MYTABLE[complete.cases(MYTABLE),]
 
 }
